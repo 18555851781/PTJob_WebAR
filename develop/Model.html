@@ -18,28 +18,24 @@
             margin: 0;
         }
         .UI_Body{
-            flex-direction: column;
-            display: flex;
-            display: -webkit-flex;
+            position: fixed;
         }
         .Text{
-            display: flex;
-            order: -10;
+            position: fixed;
         }
         .Image{
-            display: flex;
-            order: -20;
-        }
-        canvas
-        {
-            display: flex;
-            order: 10;
+            position: fixed;
+            top: 10%;
         }
 
     </style>
 </head>
 <body>
     <div class="UI_Body">
+        <div class="UI">
+            <img src="../Model/Texture/WechatIMG129.png" class="Image">
+            <p class="Text">拨浪鼓是一种古老又传统的民间乐器和玩具，出现于战国时期。拨浪鼓的主体是一面小鼓，两侧缀有两枚弹丸，鼓下有柄，转动鼓柄弹丸击鼓发出声音。鼓身可以是木的也可以是竹的，还有泥的、硬纸的；鼓面用羊皮、牛皮、蛇皮或纸制成，其中以木身羊皮面的拨浪鼓最为典型。</p>
+        </div>
         <div id="Mask" class="Display">
             <script>
 
@@ -116,10 +112,6 @@
                 window.onload = init;
 
             </script>
-        </div>
-        <div class="UI">
-            <img src="../Model/Texture/WechatIMG129.png" class="Image">
-            <p class="Text">拨浪鼓是一种古老又传统的民间乐器和玩具，出现于战国时期。拨浪鼓的主体是一面小鼓，两侧缀有两枚弹丸，鼓下有柄，转动鼓柄弹丸击鼓发出声音。鼓身可以是木的也可以是竹的，还有泥的、硬纸的；鼓面用羊皮、牛皮、蛇皮或纸制成，其中以木身羊皮面的拨浪鼓最为典型。</p>
         </div>
     </div>
 </body>
