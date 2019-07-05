@@ -15,18 +15,25 @@
     <style>
         *{
             padding: 0;
+            margin: 0;
         }
         .UI_Body{
+            flex-direction: column;
             display: flex;
             display: -webkit-flex;
         }
         .Text{
             display: flex;
-            top: 100%;
+            order: -10;
         }
         .Image{
             display: flex;
-            left: 50%;
+            order: -20;
+        }
+        canvas
+        {
+            display: flex;
+            order: 10;
         }
 
     </style>
