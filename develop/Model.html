@@ -13,15 +13,20 @@
     <script src="../three.js/examples/vendor/three.js/examples/js/loaders/MTLLoader.js"></script>
 
     <style>
+        *{
+            padding: 0;
+        }
         .UI_Body{
             display: flex;
             display: -webkit-flex;
         }
         .Text{
-            flex: 10;
+            display: flex;
+            top: 100%;
         }
         .Image{
-            width: 50%;
+            display: flex;
+            left: 50%;
         }
 
     </style>
@@ -49,13 +54,10 @@
                     renderer.setSize(window.innerWidth,window.innerHeight);
                     renderer.setClearColor(new THREE.Color(0xffffff),1.0);
                     //  重要！！！将元素渲染到html元素上 否则不显示
-                    document.body.appendChild(renderer.domElement);
+                    var dom_renderer=renderer.domElement;
+                    document.body.appendChild(dom_renderer);
+                    //document.getElementById("Mask").appendChild(renderer.domElement);
 
-                    //  动态添加html组件
-                    function  adddiv() {
-                        var addDivDom = document.createElement("div")
-                        addDivDom
-                    }
 
                     // var geometry = new THREE.BoxGeometry(1,1,1);
                     // var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
