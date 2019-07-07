@@ -35,6 +35,20 @@
             width: 110px;
             height: 84px;
         }
+        .Mask{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #333333;
+            opacity: 0.5;
+        }
+        .Load{
+            position: fixed;
+            bottom: 50%;
+            left: 47.5%;
+            font-size: 32px;
+            color: #ffffff;
+        }
 
     </style>
 </head>
@@ -43,8 +57,11 @@
         <div class="UI">
             <img src="../Model/Texture/WechatIMG129.png" class="Image">
             <p class="Text">拨浪鼓是一种古老又传统的民间乐器和玩具，出现于战国时期。拨浪鼓的主体是一面小鼓，两侧缀有两枚弹丸，鼓下有柄，转动鼓柄弹丸击鼓发出声音。鼓身可以是木的也可以是竹的，还有泥的、硬纸的；鼓面用羊皮、牛皮、蛇皮或纸制成，其中以木身羊皮面的拨浪鼓最为典型。</p>
+            <div id="Mask" class="Mask">
+                <p class="Load">加载中...</p>
+            </div>
         </div>
-        <div id="Mask" class="Display">
+        <div class="Display">
             <script>
 
                 function init() {
@@ -68,6 +85,14 @@
                     var dom_renderer=renderer.domElement;
                     document.body.appendChild(dom_renderer);
                     //document.getElementById("Mask").appendChild(renderer.domElement);
+
+                    function LoadDisplay()
+                    {
+                        var Mask = document.getElementById("Mask");
+                        Mask.style.display = "none";
+                    }
+
+
 
 
                     // var geometry = new THREE.BoxGeometry(1,1,1);
@@ -103,6 +128,7 @@
                             obj.scale.set(0.3,0.3,0.3);
                             obj.position.set(0,-2,0);
                             scene.add(obj);
+                            LoadDisplay();
                         })
                     })
                     camera.lookAt(scene.position);
