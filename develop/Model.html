@@ -83,9 +83,8 @@
                     //  重要！！！将元素渲染到html元素上 否则不显示
                     var dom_renderer=renderer.domElement;
                     document.body.appendChild(dom_renderer);
-                    //document.getElementById("Mask").appendChild(renderer.domElement);
 
-                    //  添加加载图片
+                    //  不显示加载图片
                     function LoadDisplay()
                     {
                         var Mask = document.getElementById("Mask");
@@ -99,44 +98,119 @@
                             {passive : false}
                         )
                     }
-
                     NoPull();
-                    // var geometry = new THREE.BoxGeometry(1,1,1);
-                    // var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-                    // var cube = new THREE.Mesh(geometry,material);
-                    // scene.add(cube);
+                    Load();
 
-                    // var loader = new THREE.GLTFLoader();
-                    // loader.load('../Model/blg.gltf',function (gltf) {
-                    //     scene.add(gltf.scene);
-                    //
-                    // },undefined,function (error) {
-                    //     console.log(error);
-                    // })
+                    function Load()
+                    {
+                        var loader_1 = new THREE.MTLLoader();
+                        loader_1.setPath('../Model/OBJ/');
+                        loader_1.setTexturePath('../Model/OBJ/');
+                        loader_1.load('BLG_GuSheng.mtl',function (material) {
+                            console.log(material);
+                            //  预加载
+                            material.preload();
 
-                    // var loader = new THREE.MTLLoader();
-                    // loader.load('../Model/OBJ/BLG.mtl',function () {
-                    //
-                    // })
-
-                    var loader = new THREE.MTLLoader();
-                    loader.setPath('../Model/OBJ/');
-                    loader.setTexturePath('../Model/OBJ/');
-                    loader.load('BLG.mtl',function (material) {
-                        console.log(material);
-                        //  预加载
-                        material.preload();
-
-                        var objloader = new THREE.OBJLoader();
-                        objloader.setMaterials(material);
-                        objloader.setPath('../Model/OBJ/');
-                        objloader.load('BLG.obj',function (obj) {
-                            obj.scale.set(0.3,0.3,0.3);
-                            obj.position.set(0,-2,0);
-                            scene.add(obj);
-                            LoadDisplay();
+                            var objloader = new THREE.OBJLoader();
+                            objloader.setMaterials(material);
+                            objloader.setPath('../Model/OBJ/');
+                            objloader.load('BLG_GuSheng.obj',function (obj) {
+                                obj.scale.set(0.001,0.001,0.001);
+                                scene.add(obj);
+                            })
                         })
-                    })
+
+                        var loader_2 = new THREE.MTLLoader();
+                        loader_2.setPath('../Model/OBJ/');
+                        loader_2.setTexturePath('../Model/OBJ/');
+                        loader_2.load('BLG_GuBin.mtl',function (material) {
+                            console.log(material);
+                            //  预加载
+                            material.preload();
+
+                            var objloader = new THREE.OBJLoader();
+                            objloader.setMaterials(material);
+                            objloader.setPath('../Model/OBJ/');
+                            objloader.load('BLG_GuBin.obj',function (obj) {
+                                obj.scale.set(0.001,0.001,0.001);
+                                scene.add(obj);
+                            })
+                        })
+
+                        var loader_3 = new THREE.MTLLoader();
+                        loader_3.setPath('../Model/OBJ/');
+                        loader_3.setTexturePath('../Model/OBJ/');
+                        loader_3.load('BLG_HouGuMian.mtl',function (material) {
+                            console.log(material);
+                            //  预加载
+                            material.preload();
+
+                            var objloader = new THREE.OBJLoader();
+                            objloader.setMaterials(material);
+                            objloader.setPath('../Model/OBJ/');
+                            objloader.load('BLG_HouGuMian.obj',function (obj) {
+                                obj.scale.set(0.001,0.001,0.001);
+                                scene.add(obj);
+                            })
+                        })
+
+                        var loader_4 = new THREE.MTLLoader();
+                        loader_4.setPath('../Model/OBJ/');
+                        loader_4.setTexturePath('../Model/OBJ/');
+                        loader_4.load('BLG_QianGuMian.mtl',function (material) {
+                            console.log(material);
+                            //  预加载
+                            material.preload();
+
+                            var objloader = new THREE.OBJLoader();
+                            objloader.setMaterials(material);
+                            objloader.setPath('../Model/OBJ/');
+                            objloader.load('BLG_QianGuMian.obj',function (obj) {
+                                obj.scale.set(0.001,0.001,0.001);
+                                scene.add(obj);
+                            })
+                        })
+
+                        var loader_5 = new THREE.MTLLoader();
+                        loader_5.setPath('../Model/OBJ/');
+                        loader_5.setTexturePath('../Model/OBJ/');
+                        loader_5.load('BLG_ZuoGuChui.mtl',function (material) {
+                            console.log(material);
+                            //  预加载
+                            material.preload();
+
+                            var objloader = new THREE.OBJLoader();
+                            objloader.setMaterials(material);
+                            objloader.setPath('../Model/OBJ/');
+                            objloader.load('BLG_ZuoGuChui.obj',function (obj) {
+                                obj.scale.set(0.001,0.001,0.001);
+                                scene.add(obj);
+                            })
+                        })
+
+                        var loader_6 = new THREE.MTLLoader();
+                        loader_6.setPath('../Model/OBJ/');
+                        loader_6.setTexturePath('../Model/OBJ/');
+                        loader_6.load('BLG_YouGuChui.mtl',function (material) {
+                            console.log(material);
+                            //  预加载
+                            material.preload();
+
+                            var objloader = new THREE.OBJLoader();
+                            objloader.setMaterials(material);
+                            objloader.setPath('../Model/OBJ/');
+                            objloader.load('BLG_YouGuChui.obj',function (obj) {
+                                obj.scale.set(0.001,0.001,0.001);
+                                scene.add(obj);
+                                LoadDisplay();
+                            })
+                        })
+                    }
+
+
+
+
+
                     camera.lookAt(scene.position);
 
                     var control = new THREE.OrbitControls(camera);
