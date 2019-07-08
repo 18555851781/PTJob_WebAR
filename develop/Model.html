@@ -63,7 +63,10 @@
         <div class="Display">
             <script>
 
-                function init() {
+                function init()
+                {
+                    var OBJ_GuBin,OBj_GuSheng,OBj_HouGuMian,OBj_QianGuMian,OBj_YouGuChui,OBj_ZuoGuChui;
+
                     var scene = new THREE.Scene();
 
                     var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
@@ -76,6 +79,8 @@
                     var pointlight_2 = new THREE.PointLight(0xffffff,2);
                     pointlight_2.position.set(-10,10,10);
                     scene.add(pointlight_2);
+
+                    var OBJ_Group = new THREE.Group();
 
                     var renderer = new THREE.WebGLRenderer();
                     renderer.setSize(window.innerWidth,window.innerHeight);
@@ -99,8 +104,9 @@
                         )
                     }
                     NoPull();
-                    Load();
 
+                    //  加载模型并初始化
+                    Load();
                     function Load()
                     {
                         var loader_1 = new THREE.MTLLoader();
@@ -111,12 +117,13 @@
                             //  预加载
                             material.preload();
 
-                            var objloader = new THREE.OBJLoader();
-                            objloader.setMaterials(material);
-                            objloader.setPath('../Model/OBJ/');
-                            objloader.load('BLG_GuSheng.obj',function (obj) {
+                            OBj_GuSheng = new THREE.OBJLoader();
+                            OBj_GuSheng.setMaterials(material);
+                            OBj_GuSheng.setPath('../Model/OBJ/');
+                            OBj_GuSheng.load('BLG_GuSheng.obj',function (obj) {
                                 obj.scale.set(0.001,0.001,0.001);
-                                scene.add(obj);
+                                obj.name = "GuSheng";
+                                OBJ_Group.add(obj);
                             })
                         })
 
@@ -128,12 +135,13 @@
                             //  预加载
                             material.preload();
 
-                            var objloader = new THREE.OBJLoader();
-                            objloader.setMaterials(material);
-                            objloader.setPath('../Model/OBJ/');
-                            objloader.load('BLG_GuBin.obj',function (obj) {
+                            OBJ_GuBin = new THREE.OBJLoader();
+                            OBJ_GuBin.setMaterials(material);
+                            OBJ_GuBin.setPath('../Model/OBJ/');
+                            OBJ_GuBin.load('BLG_GuBin.obj',function (obj) {
                                 obj.scale.set(0.001,0.001,0.001);
-                                scene.add(obj);
+                                obj.name = "GuBin";
+                                OBJ_Group.add(obj);
                             })
                         })
 
@@ -145,12 +153,13 @@
                             //  预加载
                             material.preload();
 
-                            var objloader = new THREE.OBJLoader();
-                            objloader.setMaterials(material);
-                            objloader.setPath('../Model/OBJ/');
-                            objloader.load('BLG_HouGuMian.obj',function (obj) {
+                            OBj_HouGuMian = new THREE.OBJLoader();
+                            OBj_HouGuMian.setMaterials(material);
+                            OBj_HouGuMian.setPath('../Model/OBJ/');
+                            OBj_HouGuMian.load('BLG_HouGuMian.obj',function (obj) {
                                 obj.scale.set(0.001,0.001,0.001);
-                                scene.add(obj);
+                                obj.name = "HouGuMian";
+                                OBJ_Group.add(obj);
                             })
                         })
 
@@ -162,12 +171,13 @@
                             //  预加载
                             material.preload();
 
-                            var objloader = new THREE.OBJLoader();
-                            objloader.setMaterials(material);
-                            objloader.setPath('../Model/OBJ/');
-                            objloader.load('BLG_QianGuMian.obj',function (obj) {
+                            OBj_QianGuMian = new THREE.OBJLoader();
+                            OBj_QianGuMian.setMaterials(material);
+                            OBj_QianGuMian.setPath('../Model/OBJ/');
+                            OBj_QianGuMian.load('BLG_QianGuMian.obj',function (obj) {
                                 obj.scale.set(0.001,0.001,0.001);
-                                scene.add(obj);
+                                obj.name = "QianGuMian";
+                                OBJ_Group.add(obj);
                             })
                         })
 
@@ -179,12 +189,13 @@
                             //  预加载
                             material.preload();
 
-                            var objloader = new THREE.OBJLoader();
-                            objloader.setMaterials(material);
-                            objloader.setPath('../Model/OBJ/');
-                            objloader.load('BLG_ZuoGuChui.obj',function (obj) {
+                            OBj_ZuoGuChui = new THREE.OBJLoader();
+                            OBj_ZuoGuChui.setMaterials(material);
+                            OBj_ZuoGuChui.setPath('../Model/OBJ/');
+                            OBj_ZuoGuChui.load('BLG_ZuoGuChui.obj',function (obj) {
                                 obj.scale.set(0.001,0.001,0.001);
-                                scene.add(obj);
+                                obj.name = "ZuoGuChui";
+                                OBJ_Group.add(obj);
                             })
                         })
 
@@ -196,20 +207,22 @@
                             //  预加载
                             material.preload();
 
-                            var objloader = new THREE.OBJLoader();
-                            objloader.setMaterials(material);
-                            objloader.setPath('../Model/OBJ/');
-                            objloader.load('BLG_YouGuChui.obj',function (obj) {
+                            OBj_YouGuChui = new THREE.OBJLoader();
+                            OBj_YouGuChui.setMaterials(material);
+                            OBj_YouGuChui.setPath('../Model/OBJ/');
+                            OBj_YouGuChui.load('BLG_YouGuChui.obj',function (obj) {
                                 obj.scale.set(0.001,0.001,0.001);
-                                scene.add(obj);
+                                obj.name = "YouGuChui";
+                                OBJ_Group.add(obj);
                                 LoadDisplay();
                             })
                         })
                     }
 
+                    console.log(OBJ_Group.children[0]);
 
-
-
+                    console.log(OBJ_Group);
+                    scene.add(OBJ_Group);
 
                     camera.lookAt(scene.position);
 
