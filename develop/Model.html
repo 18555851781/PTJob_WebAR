@@ -48,6 +48,14 @@
             height: 80%;
             transform: translate(-50%,-60%);
         }
+        .Move
+        {
+            position: fixed;
+            top: 100%;
+            right: 0%;
+            height: 100px;
+            width: 200px;
+        }
 
     </style>
 </head>
@@ -57,16 +65,23 @@
             <img src="../Model/Texture/WechatIMG129.png" class="Image">
             <p class="Text">拨浪鼓是一种古老又传统的民间乐器和玩具，出现于战国时期。拨浪鼓的主体是一面小鼓，两侧缀有两枚弹丸，鼓下有柄，转动鼓柄弹丸击鼓发出声音。鼓身可以是木的也可以是竹的，还有泥的、硬纸的；鼓面用羊皮、牛皮、蛇皮或纸制成，其中以木身羊皮面的拨浪鼓最为典型。</p>
             <div id="Mask" class="Mask">
-                <img src="../Model/Texture/BLG.jpg" class="Load">
+                <img src="../Model/Texture/BLG.jpg" class="Load" onclick="MoveControl()">
+                <button type="button" class="Move" onclick="MoveControl()">Input</button>
             </div>
         </div>
         <div class="Display">
             <script>
+                var IsGetObj,IsMove = false;
+
+                function MoveControl()
+                {
+                    IsMove = !IsMove;
+                }
 
                 function init()
                 {
                     var OBJ_GuBin,OBj_GuSheng,OBj_HouGuMian,OBj_QianGuMian,OBj_YouGuChui,OBj_ZuoGuChui;
-                    var IsGetObj = false;
+
 
                     var scene = new THREE.Scene();
 
@@ -118,12 +133,13 @@
                     //  对模型进行操作
                     function ControlModel(model)
                     {
-                        console.log(model);
-
-                        //model.translateOnAxis(new THREE.Vector3(x,y,z),0.1);
-
-                        model.position.x+=0.01;
-
+                        if(model.position.y>=0.5)
+                        {
+                            model.position.y-=0.01;
+                        }else
+                        {
+                            return false;
+                        }
                     }
 
                     //  加载模型并初始化
@@ -261,15 +277,13 @@
 
                             LoadDisplay();
                         }
-
-                        if(IsGetObj)
+                        if(IsGetObj && IsMove)
                         {
                             ControlModel(OBJ_GuBin);
                         }
 
                     }
-
-                    setInterval(Move,1000);
+                    setInterval(Move,500);
 
                     camera.lookAt(scene.position);
 
