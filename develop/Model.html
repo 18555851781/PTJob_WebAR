@@ -51,10 +51,11 @@
         .Move
         {
             position: fixed;
-            bottom:15%;
+            bottom:0%;
             right: 0%;
             width: 110px;
-            height: 50px;
+            height: 84px;
+            background-image: url("../Model/Texture/BLG.jpg");
         }
 
     </style>
@@ -62,11 +63,10 @@
 <body>
     <div class="UI_Body">
         <div class="UI">
-            <img src="../Model/Texture/WechatIMG129.png" class="Image">
-            <input type="button" value="查看" class="Move"  onclick="MoveControl()">
+            <input type="image" src="../Model/Texture/WechatIMG129.png" class="Move"  onclick="MoveControl()" >
             <p class="Text">拨浪鼓是一种古老又传统的民间乐器和玩具，出现于战国时期。拨浪鼓的主体是一面小鼓，两侧缀有两枚弹丸，鼓下有柄，转动鼓柄弹丸击鼓发出声音。鼓身可以是木的也可以是竹的，还有泥的、硬纸的；鼓面用羊皮、牛皮、蛇皮或纸制成，其中以木身羊皮面的拨浪鼓最为典型。</p>
             <div id="Mask" class="Mask">
-                <img src="../Model/Texture/BLG.jpg" class="Load">
+                <img src="../Model/Texture/BLG.jpg" class="Load" onclick="MoveControl()">
             </div>
         </div>
         <div class="Display">
