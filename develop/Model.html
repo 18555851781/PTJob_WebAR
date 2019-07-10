@@ -118,6 +118,22 @@
                     var dom_renderer=renderer.domElement;
                     document.body.appendChild(dom_renderer);
 
+                    //  试加载
+                    var loader = new THREE.GLTFLoader();
+                    loader.load("../Model/GLTF/BLG_GuSheng.glb",function (obj) {
+                        console.log(obj);
+                        obj.position.set(new THREE.Vector3(0,0,0));
+                        scene.add(obj);
+                    },function (xhr) {
+
+                        console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+                    },function (error) {
+
+                        console.log('load error!'+error.getWebGLErrorMessage());
+                    }
+                    );
+
                     //  不显示加载图片
                     function LoadDisplay()
                     {
@@ -320,6 +336,12 @@
                         })
                     }
                     Load();
+
+                    //  标签跟随物体进行移动
+                    function TagMove()
+                    {
+
+                    }
 
                     //  第一帧的时候获取不到 必须要重复获取才可以
                     //  获取模型并对其进行操作
