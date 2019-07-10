@@ -27,13 +27,7 @@
             bottom: 0%;
             font-size: x-small;
             margin: 5px;
-        }
-        .Image{
-            position: fixed;
-            bottom: 0%;
-            right: 0%;
-            width: 110px;
-            height: 84px;
+            z-index: 1000;
         }
         .Mask{
             position: fixed;
@@ -57,12 +51,32 @@
             height: 84px;
             background-image: url("../Model/Texture/BLG.jpg");
         }
+        #Tag1,#Tag2,#Tag3,#Tag4,#Tag5,#Tag6{
+            position: absolute;
+            background-color: skyblue;
+            width: 50px;
+            height: 25px;
+            text-align: center;
+            border-radius: 10px;
+            display: none;
+            line-height: 25px;
+            font-size: 1em;
+        }
+
 
     </style>
 </head>
 <body>
     <div class="UI_Body">
         <div class="UI">
+            <div class="TagUI">
+                <div id="Tag1"></div>
+                <div id="Tag2"></div>
+                <div id="Tag3"></div>
+                <div id="Tag4"></div>
+                <div id="Tag5"></div>
+                <div id="Tag6"></div>
+            </div>
             <input type="image" src="../Model/Texture/WechatIMG129.png" class="Move"  onclick="MoveControl()" >
             <p class="Text">拨浪鼓是一种古老又传统的民间乐器和玩具，出现于战国时期。拨浪鼓的主体是一面小鼓，两侧缀有两枚弹丸，鼓下有柄，转动鼓柄弹丸击鼓发出声音。鼓身可以是木的也可以是竹的，还有泥的、硬纸的；鼓面用羊皮、牛皮、蛇皮或纸制成，其中以木身羊皮面的拨浪鼓最为典型。</p>
             <div id="Mask" class="Mask">
@@ -114,25 +128,26 @@
                     var renderer = new THREE.WebGLRenderer();
                     renderer.setSize(window.innerWidth,window.innerHeight);
                     renderer.setClearColor(new THREE.Color(0xffffff),1.0);
+                    //renderer.domElement.style.position = "fixed";
                     //  重要！！！将元素渲染到html元素上 否则不显示
                     var dom_renderer=renderer.domElement;
                     document.body.appendChild(dom_renderer);
 
-                    //  试加载
-                    var loader = new THREE.GLTFLoader();
-                    loader.load("../Model/GLTF/BLG_GuSheng.glb",function (obj) {
-                        console.log(obj);
-                        obj.position.set(new THREE.Vector3(0,0,0));
-                        scene.add(obj);
-                    },function (xhr) {
-
-                        console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-                    },function (error) {
-
-                        console.log('load error!'+error.getWebGLErrorMessage());
-                    }
-                    );
+                    // //  试加载
+                    // var loader = new THREE.GLTFLoader();
+                    // loader.load("../Model/GLTF/BLG_GuSheng.glb",function (obj) {
+                    //     console.log(obj);
+                    //     obj.position.set(new THREE.Vector3(0,0,0));
+                    //     scene.add(obj);
+                    // },function (xhr) {
+                    //
+                    //     console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+                    //
+                    // },function (error) {
+                    //
+                    //     console.log('load error!'+error.getWebGLErrorMessage());
+                    // }
+                    // );
 
                     //  不显示加载图片
                     function LoadDisplay()
@@ -338,9 +353,37 @@
                     Load();
 
                     //  标签跟随物体进行移动
-                    function TagMove()
+                    function TagMove(obj,x,y,z,tag,text)
                     {
 
+                        var worldVec3 = new THREE.Vector3(x,y,z);
+                        var canvasVec2 = worldVec3.project(camera);
+                        var a = window.innerWidth / 2;
+                        var b = window.innerHeight / 2;
+                        var x_canvas = Math.round(canvasVec2.x * a + a);
+                        var y_canvas = Math.round(-canvasVec2.y * b + b);
+
+                        var objtag = document.getElementById(tag);
+                        objtag.innerHTML = text;
+                        objtag.style.left = x_canvas  + "px";
+                        objtag.style.top = y_canvas  + "px";
+                        objtag.style.display = "block";
+                    }
+
+                    function TagDisplay(tag1,tag2,tag3,tag4,tag5,tag6)
+                    {
+                        var Mytag1 = document.getElementById(tag1);
+                        Mytag1.style.display = "none";
+                        var Mytag2 = document.getElementById(tag2);
+                        Mytag2.style.display = "none";
+                        var Mytag3 = document.getElementById(tag3);
+                        Mytag3.style.display = "none";
+                        var Mytag4 = document.getElementById(tag4);
+                        Mytag4.style.display = "none";
+                        var Mytag5 = document.getElementById(tag5);
+                        Mytag5.style.display = "none";
+                        var Mytag6 = document.getElementById(tag6);
+                        Mytag6.style.display = "none";
                     }
 
                     //  第一帧的时候获取不到 必须要重复获取才可以
@@ -360,6 +403,12 @@
                             ControlModel_Boom(OBj_ZuoGuChui);
                             ControlModel_Boom(OBj_QianGuMian);
                             ControlModel_Boom(OBj_HouGuMian);
+                            TagMove(OBJ_GuBin,OBJ_GuBin.position.x-0.5,OBJ_GuBin.position.y-3.6,0,"Tag1","鼓柄");
+                            TagMove(OBj_GuSheng,OBj_GuSheng.position.x-0.5,OBj_GuSheng.position.y+1.5,0,"Tag2","鼓身");
+                            // TagMove(OBj_QianGuMian,OBj_QianGuMian.position.x-0.5,OBj_QianGuMian.position.y-4,OBj_QianGuMian.position.z,"Tag3","前鼓面");
+                            // TagMove(OBj_HouGuMian,OBj_HouGuMian.position.x-0.5,OBj_HouGuMian.position.y-4,OBj_HouGuMian.position.z,"Tag4","后鼓面");
+                            // TagMove(OBj_YouGuChui,OBj_YouGuChui.position.x-0.5,OBj_YouGuChui.position.y-4,OBj_YouGuChui.position.z,"Tag5","右鼓槌");
+                            // TagMove(OBj_ZuoGuChui,OBj_ZuoGuChui.position.x-0.5,OBj_ZuoGuChui.position.y-4,OBj_ZuoGuChui.position.z,"Tag6","左鼓槌");
                         }
                         else if(IsGetObj && !IsMove)
                         {
@@ -368,6 +417,7 @@
                             ControlModel_Back(OBj_ZuoGuChui);
                             ControlModel_Back(OBj_QianGuMian);
                             ControlModel_Back(OBj_HouGuMian);
+                            TagDisplay("Tag1","Tag2","Tag3","Tag4","Tag5","Tag6");
                         }
 
                     }
