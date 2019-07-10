@@ -89,6 +89,7 @@
                 {
                     var OBJ_GuBin,OBj_GuSheng,OBj_HouGuMian,OBj_QianGuMian,OBj_YouGuChui,OBj_ZuoGuChui;
 
+
                     var scene = new THREE.Scene();
 
                     var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
@@ -135,21 +136,63 @@
 
 
                     //  对模型进行操作
-                    function ControlModel(model)
+                    function ControlModel_Boom(model)
                     {
-
                         //  数值向外移动0.5就可以看到明显差距
                         if(model.name == "GuBin" && model.position.y >= 1)
                         {
                             model.position.y-=0.01;
                         }
-                        if(model.name== "HouGuMian" && model.position.z >=-0.5)
+                        if(model.name == "HouGuMian" && model.position.z >=-0.5)
                         {
                             model.position.z-=0.01;
                         }
-                        IsMoveOver = true;
-                        return false;
+                        if(model.name == "QianGuMian" && model.position.z <=0.5)
+                        {
+                            model.position.z += 0.01;
+                        }
+                        if(model.name == "ZuoGuChui" && model.position.x >=-0.5)
+                        {
+                            model.position.x -= 0.01;
+                        }
+                        if(model.name == "YouGuChui" && model.position.x <=0.5)
+                        {
+                            model.position.x += 0.01;
+                        }
+                        else if(model.position.x >= 0.5)
+                        {
+                            IsMoveOver = true;
+                            return false;
+                        }
+                    }
 
+                    function ControlModel_Back(model)
+                    {
+                        if(model.name == "GuBin" && model.position.y <= 1.5)
+                        {
+                            model.position.y+=0.01;
+                        }
+                        if(model.name == "HouGuMian" && model.position.z <=0)
+                        {
+                            model.position.z+=0.01;
+                        }
+                        if(model.name == "QianGuMian" && model.position.z >=0)
+                        {
+                            model.position.z -= 0.01;
+                        }
+                        if(model.name == "ZuoGuChui" && model.position.x <=0)
+                        {
+                            model.position.x += 0.01;
+                        }
+                        if(model.name == "YouGuChui" && model.position.x >=0)
+                        {
+                            model.position.x -= 0.01;
+                        }
+                        else if(model.position.x <= 0)
+                        {
+                            IsMoveOver = true;
+                            return false;
+                        }
                     }
 
                     //  加载模型并初始化
@@ -279,7 +322,7 @@
                     Load();
 
                     //  第一帧的时候获取不到 必须要重复获取才可以
-
+                    //  获取模型并对其进行操作
                     function Move()
                     {
                         if(OBJ_GuBin !== undefined && OBj_YouGuChui !== undefined && OBj_ZuoGuChui !== undefined && OBj_QianGuMian !== undefined && OBj_HouGuMian !== undefined && OBj_GuSheng!== undefined && !IsGetObj)
@@ -290,17 +333,25 @@
                         }
                         if(IsGetObj && IsMove)
                         {
-                            ControlModel(OBJ_GuBin);
-                            ControlModel(OBj_YouGuChui);
-                            ControlModel(OBj_ZuoGuChui);
-                            ControlModel(OBj_QianGuMian);
-                            ControlModel(OBj_HouGuMian);
+                            ControlModel_Boom(OBJ_GuBin);
+                            ControlModel_Boom(OBj_YouGuChui);
+                            ControlModel_Boom(OBj_ZuoGuChui);
+                            ControlModel_Boom(OBj_QianGuMian);
+                            ControlModel_Boom(OBj_HouGuMian);
+                        }
+                        else if(IsGetObj && !IsMove)
+                        {
+                            ControlModel_Back(OBJ_GuBin);
+                            ControlModel_Back(OBj_YouGuChui);
+                            ControlModel_Back(OBj_ZuoGuChui);
+                            ControlModel_Back(OBj_QianGuMian);
+                            ControlModel_Back(OBj_HouGuMian);
                         }
 
                     }
                     setInterval(Move,10);
 
-
+                    //  渲染
                     function render()
                     {
                         requestAnimationFrame(render);
