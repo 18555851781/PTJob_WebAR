@@ -42,7 +42,7 @@
             height: 80%;
             transform: translate(-50%,-60%);
         }
-        .Move
+        .BLG_img
         {
             position: fixed;
             bottom:0%;
@@ -62,6 +62,26 @@
             font-size: 1em;
         }
 
+        .ControlModel{
+            position: fixed;
+            text-align: center;
+            height: 25px;
+            width: 50px;
+            bottom: 12%;
+            right: 1%;
+            border-radius: 5px;
+            background-color: skyblue;
+        }
+        .DisplayTag{
+            position: fixed;
+            text-align: center;
+            height: 25px;
+            width: 50px;
+            bottom: 12%;
+            right: 15%;
+            border-radius: 5px;
+            background-color: skyblue;
+        }
 
     </style>
 </head>
@@ -77,33 +97,43 @@
                 <div id="Tag6"></div>
             </div>
             <div>
-                <input type="button" class="DisplayTag"  onclick="TagDisplay()" >
-                <input type="button" class="NotDisplayTag" onclick="TagNotDisplay()">
+                <input type="button" class="ControlModel"  onclick="MoveControl()" value="控制">
+                <input type="button" class="DisplayTag" onclick="TagControl()" value="标签">
             </div>
             <div>
                 <p class="Text">拨浪鼓是一种古老又传统的民间乐器和玩具，出现于战国时期。拨浪鼓的主体是一面小鼓，两侧缀有两枚弹丸，鼓下有柄，转动鼓柄弹丸击鼓发出声音。鼓身可以是木的也可以是竹的，还有泥的、硬纸的；鼓面用羊皮、牛皮、蛇皮或纸制成，其中以木身羊皮面的拨浪鼓最为典型。</p>
-                <img src="../Model/Texture/WechatIMG129.png" class="Move">
+                <img src="../Model/Texture/WechatIMG129.png" class="BLG_img">
             </div>
             <div id="Mask" class="Mask">
-                <img src="../Model/Texture/BLG.jpg" class="Load" onclick="MoveControl()">
+                <img src="../Model/Texture/BLG.jpg" class="Load">
             </div>
         </div>
         <div class="Display">
             <script>
 
                 //  外部进行Bool值切换  使按钮按下后移动阀值改变
-                var IsGetObj,IsMove = false;
+                var IsGetObj,IsMove,IsTagDisplay = false;
 
                 function MoveControl()
                 {
                     IsMove = !IsMove;
                 }
 
+                function TagControl()
+                {
+                    IsTagDisplay = !IsTagDisplay;
+                    if(IsTagDisplay)
+                    {
+                        TagDisplay();
+                    }else
+                    {
+                        TagNotDisplay();
+                    }
+                }
+
                 //  标签显示
                 function TagDisplay()
                 {
-                    console.log("111111111");
-
                     var Mytag1 = document.getElementById("Tag1");
                     Mytag1.style.display = "block";
                     var Mytag2 = document.getElementById("Tag2");
@@ -121,7 +151,6 @@
                 //  标签取消显示
                 function TagNotDisplay()
                 {
-                    console.log("2222222222");
                     var Mytag1 = document.getElementById("Tag1");
                     Mytag1.style.display = "none";
                     var Mytag2 = document.getElementById("Tag2");
@@ -151,40 +180,23 @@
                     control.autoRotate = true;
 
                     var pointlight = new THREE.PointLight(0xffffff,2);
-                    pointlight.position.set(-10,10,-10);
+                    pointlight.position.set(-30,30,-30);
                     scene.add(pointlight);
 
                     var pointlight_2 = new THREE.PointLight(0xffffff,2);
-                    pointlight_2.position.set(-10,10,10);
+                    pointlight_2.position.set(-30,30,30);
                     scene.add(pointlight_2);
 
                     var pointlight_3 = new THREE.PointLight(0xffffff,2);
-                    pointlight_3.position.set(10,0,0);
+                    pointlight_3.position.set(30,0,0);
                     scene.add(pointlight_3);
 
                     var renderer = new THREE.WebGLRenderer();
                     renderer.setSize(window.innerWidth,window.innerHeight);
                     renderer.setClearColor(new THREE.Color(0xffffff),1.0);
-                    //renderer.domElement.style.position = "fixed";
+                    //renderer.domElement.style.position = "relative";
                     //  重要！！！将元素渲染到html元素上 否则不显示
-                    var dom_renderer=renderer.domElement;
-                    document.body.appendChild(dom_renderer);
-
-                    // //  试加载
-                    // var loader = new THREE.GLTFLoader();
-                    // loader.load("../Model/GLTF/BLG_GuSheng.glb",function (obj) {
-                    //     console.log(obj);
-                    //     obj.position.set(new THREE.Vector3(0,0,0));
-                    //     scene.add(obj);
-                    // },function (xhr) {
-                    //
-                    //     console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-                    //
-                    // },function (error) {
-                    //
-                    //     console.log('load error!'+error.getWebGLErrorMessage());
-                    // }
-                    // );
+                    document.body.appendChild(renderer.domElement);
 
                     //  不显示加载图片
                     function LoadDisplay()
@@ -389,7 +401,7 @@
                     }
 
                     //  标签跟随物体进行移动
-                    function TagMove(obj,x,y,z,tag,text)
+                    function TagControl(obj,x,y,z,tag,text)
                     {
 
                         var worldVec3 = new THREE.Vector3(x,y,z);
@@ -403,6 +415,20 @@
                         objtag.innerHTML = text;
                         objtag.style.left = x_canvas  + "px";
                         objtag.style.top = y_canvas  + "px";
+                    }
+
+                    //  标签实时刷新
+                    function TagMove()
+                    {
+                        if(IsGetObj)
+                        {
+                            TagControl(OBJ_GuBin,OBJ_GuBin.position.x-1,OBJ_GuBin.position.y-10,OBJ_GuBin.position.z,"Tag1","鼓柄");
+                            TagControl(OBj_GuSheng,OBj_GuSheng.position.x-1,OBj_GuSheng.position.y+12,OBj_GuSheng.position.z,"Tag2","鼓身");
+                            TagControl(OBj_QianGuMian,OBj_QianGuMian.position.x,OBj_QianGuMian.position.y,OBj_QianGuMian.position.z,"Tag3","前鼓面");
+                            TagControl(OBj_HouGuMian,OBj_HouGuMian.position.x,OBj_HouGuMian.position.y,OBj_HouGuMian.position.z,"Tag4","后鼓面");
+                            TagControl(OBj_YouGuChui,OBj_YouGuChui.position.x+6,OBj_YouGuChui.position.y-5,OBj_YouGuChui.position.z+3,"Tag5","右鼓槌");
+                            TagControl(OBj_ZuoGuChui,OBj_ZuoGuChui.position.x-3,OBj_ZuoGuChui.position.y-5,OBj_ZuoGuChui.position.z-3,"Tag6","左鼓槌");
+                        }
                     }
 
                     //  第一帧的时候获取不到 必须要重复获取才可以
@@ -422,12 +448,6 @@
                             ControlModel_Boom(OBj_ZuoGuChui);
                             ControlModel_Boom(OBj_QianGuMian);
                             ControlModel_Boom(OBj_HouGuMian);
-                            TagMove(OBJ_GuBin,OBJ_GuBin.position.x-1,OBJ_GuBin.position.y-10,OBJ_GuBin.position.z,"Tag1","鼓柄");
-                            TagMove(OBj_GuSheng,OBj_GuSheng.position.x-1,OBj_GuSheng.position.y+12,OBj_GuSheng.position.z,"Tag2","鼓身");
-                            TagMove(OBj_QianGuMian,OBj_QianGuMian.position.x,OBj_QianGuMian.position.y,OBj_QianGuMian.position.z,"Tag3","前鼓面");
-                            TagMove(OBj_HouGuMian,OBj_HouGuMian.position.x,OBj_HouGuMian.position.y,OBj_HouGuMian.position.z,"Tag4","后鼓面");
-                            TagMove(OBj_YouGuChui,OBj_YouGuChui.position.x+6,OBj_YouGuChui.position.y-5,OBj_YouGuChui.position.z+3,"Tag5","右鼓槌");
-                            TagMove(OBj_ZuoGuChui,OBj_ZuoGuChui.position.x-3,OBj_ZuoGuChui.position.y-5,OBj_ZuoGuChui.position.z-3,"Tag6","左鼓槌");
                         }
                         else if(IsGetObj && !IsMove)
                         {
@@ -445,6 +465,7 @@
                     //  渲染
                     function render()
                     {
+                        requestAnimationFrame(TagMove);
                         requestAnimationFrame(render);
                         renderer.render(scene,camera);
                     }
