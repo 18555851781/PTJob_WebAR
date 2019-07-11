@@ -92,11 +92,7 @@
 
                 function MoveControl()
                 {
-                    if(IsMoveOver)
-                    {
-                        IsMove = !IsMove;
-                        IsMoveOver = false;
-                    }
+                    IsMove = !IsMove;
                 }
 
                 function init()
@@ -107,7 +103,7 @@
                     var scene = new THREE.Scene();
 
                     var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
-                    camera.position.z = 5;
+                    camera.position.z = 30;
                     camera.lookAt(scene.position);
 
                     var control = new THREE.OrbitControls(camera);
@@ -166,66 +162,6 @@
                     NoPull();
 
 
-                    //  对模型进行操作
-                    function ControlModel_Boom(model)
-                    {
-                        //  数值向外移动0.5就可以看到明显差距
-                        if(model.name == "GuBin" && model.position.y >= 1)
-                        {
-                            model.position.y-=0.01;
-                        }
-                        if(model.name == "HouGuMian" && model.position.z >=-0.5)
-                        {
-                            model.position.z-=0.01;
-                        }
-                        if(model.name == "QianGuMian" && model.position.z <=0.5)
-                        {
-                            model.position.z += 0.01;
-                        }
-                        if(model.name == "ZuoGuChui" && model.position.x >=-0.5)
-                        {
-                            model.position.x -= 0.01;
-                        }
-                        if(model.name == "YouGuChui" && model.position.x <=0.5)
-                        {
-                            model.position.x += 0.01;
-                        }
-                        else if(model.position.x >= 0.5)
-                        {
-                            IsMoveOver = true;
-                            return false;
-                        }
-                    }
-
-                    function ControlModel_Back(model)
-                    {
-                        if(model.name == "GuBin" && model.position.y <= 1.5)
-                        {
-                            model.position.y+=0.01;
-                        }
-                        if(model.name == "HouGuMian" && model.position.z <=0)
-                        {
-                            model.position.z+=0.01;
-                        }
-                        if(model.name == "QianGuMian" && model.position.z >=0)
-                        {
-                            model.position.z -= 0.01;
-                        }
-                        if(model.name == "ZuoGuChui" && model.position.x <=0)
-                        {
-                            model.position.x += 0.01;
-                        }
-                        if(model.name == "YouGuChui" && model.position.x >=0)
-                        {
-                            model.position.x -= 0.01;
-                        }
-                        else if(model.position.x <= 0)
-                        {
-                            IsMoveOver = true;
-                            return false;
-                        }
-                    }
-
                     //  加载模型并初始化
                     function Load()
                     {
@@ -240,10 +176,10 @@
                             Loadobj.setMaterials(material);
                             Loadobj.setPath('../Model/OBJ/');
                             Loadobj.load('BLG_GuSheng.obj',function (obj) {
-                                obj.scale.set(0.002,0.002,0.002);
-                                obj.position.y = 1.5;
+
                                 obj.name = "GuSheng";
                                 OBj_GuSheng = obj;
+                                console.log(obj);
                                 //OBJ_Group.add(OBj_GuSheng);
                                 scene.add(obj);
                             });
@@ -260,11 +196,11 @@
                             Loadobj.setMaterials(material);
                             Loadobj.setPath('../Model/OBJ/');
                             Loadobj.load('BLG_GuBin.obj',function (obj) {
-                                obj.scale.set(0.002,0.002,0.002);
-                                obj.position.y = 1.5;
-                                obj.position.z = -0.1;
+
+                                obj.scale.y = 0.7;
                                 obj.name = "GuBin";
                                 OBJ_GuBin = obj;
+                                console.log(obj);
                                 //OBJ_Group.add(OBJ_GuBin);
                                 scene.add(obj);
                             })
@@ -281,10 +217,12 @@
                             loadobj.setMaterials(material);
                             loadobj.setPath('../Model/OBJ/');
                             loadobj.load('BLG_HouGuMian.obj',function (obj) {
-                                obj.scale.set(0.002,0.002,0.002);
-                                obj.position.y = 1.5;
+
+                                obj.position.y = 5.4;
+                                obj.position.z = -2;
                                 obj.name = "HouGuMian";
                                 OBj_HouGuMian = obj;
+                                console.log(obj);
                                 //OBJ_Group.add(OBj_HouGuMian);
                                 scene.add(obj);
                             })
@@ -301,10 +239,12 @@
                             loadobj.setMaterials(material);
                             loadobj.setPath('../Model/OBJ/');
                             loadobj.load('BLG_QianGuMian.obj',function (obj) {
-                                obj.scale.set(0.002,0.002,0.002);
-                                obj.position.y = 1.5;
+
+                                obj.position.y = 5.4;
+                                obj.position.z = 2;
                                 obj.name = "QianGuMian";
                                 OBj_QianGuMian = obj;
+                                console.log(obj);
                                 //OBJ_Group.add(OBj_QianGuMian);
                                 scene.add(obj);
                             })
@@ -321,10 +261,13 @@
                             loadobj.setMaterials(material);
                             loadobj.setPath('../Model/OBJ/');
                             loadobj.load('BLG_ZuoGuChui.obj',function (obj) {
-                                obj.scale.set(0.002,0.002,0.002);
-                                obj.position.y = 1.5;
+
+                                obj.position.x = -5.7;
+                                obj.position.y = 5.4;
+                                obj.position.z = 0.05;
                                 obj.name = "ZuoGuChui";
                                 OBj_ZuoGuChui = obj;
+                                console.log(obj);
                                 //OBJ_Group.add(OBj_ZuoGuChui);
                                 scene.add(obj);
                             })
@@ -341,16 +284,68 @@
                             loadobj.setMaterials(material);
                             loadobj.setPath('../Model/OBJ/');
                             loadobj.load('BLG_YouGuChui.obj',function (obj) {
-                                obj.scale.set(0.002,0.002,0.002);
-                                obj.position.y = 1.5;
+
+                                obj.position.z = 0.3;
+                                obj.position.y = 5.4;
                                 obj.name = "YouGuChui";
                                 OBj_YouGuChui = obj;
+                                console.log(obj);
                                 //OBJ_Group.add(OBj_YouGuChui);
                                 scene.add(obj);
                             })
                         })
                     }
                     Load();
+
+                    //  对模型进行操作
+                    function ControlModel_Boom(model)
+                    {
+                        //  数值向外移动0.5就可以看到明显差距
+                        if(model.name == "GuBin" && model.position.y >= -3)
+                        {
+                            model.position.y-=0.1;
+                        }
+                        if(model.name == "HouGuMian" && model.position.z >=-5)
+                        {
+                            model.position.z-=0.1;
+                        }
+                        if(model.name == "QianGuMian" && model.position.z <=5)
+                        {
+                            model.position.z += 0.1;
+                        }
+                        if(model.name == "ZuoGuChui" && model.position.x >=-8.7)
+                        {
+                            model.position.x -= 0.1;
+                        }
+                        if(model.name == "YouGuChui" && model.position.x <=3)
+                        {
+                            model.position.x += 0.1;
+                        }
+                    }
+
+                    function ControlModel_Back(model)
+                    {
+                        if(model.name == "GuBin" && model.position.y <= 0)
+                        {
+                            model.position.y+=0.1;
+                        }
+                        if(model.name == "HouGuMian" && model.position.z <=-2)
+                        {
+                            model.position.z+=0.1;
+                        }
+                        if(model.name == "QianGuMian" && model.position.z >=2)
+                        {
+                            model.position.z -= 0.1;
+                        }
+                        if(model.name == "ZuoGuChui" && model.position.x <=-5.7)
+                        {
+                            model.position.x += 0.1;
+                        }
+                        if(model.name == "YouGuChui" && model.position.x >= 0)
+                        {
+                            model.position.x -= 0.1;
+                        }
+                    }
 
                     //  标签跟随物体进行移动
                     function TagMove(obj,x,y,z,tag,text)
@@ -370,6 +365,7 @@
                         objtag.style.display = "block";
                     }
 
+                    //  标签取消显示
                     function TagDisplay(tag1,tag2,tag3,tag4,tag5,tag6)
                     {
                         var Mytag1 = document.getElementById(tag1);
@@ -403,20 +399,20 @@
                             ControlModel_Boom(OBj_ZuoGuChui);
                             ControlModel_Boom(OBj_QianGuMian);
                             ControlModel_Boom(OBj_HouGuMian);
-                            TagMove(OBJ_GuBin,OBJ_GuBin.position.x-0.05,OBJ_GuBin.position.y-3.6,0.3,"Tag1","鼓柄");
-                            TagMove(OBj_GuSheng,OBj_GuSheng.position.x,OBj_GuSheng.position.y+1.4,0.15,"Tag2","鼓身");
-                            TagMove(OBj_QianGuMian,OBj_QianGuMian.position.x,OBj_QianGuMian.position.y,OBj_QianGuMian.position.z+1,"Tag3","前鼓面");
-                            TagMove(OBj_HouGuMian,OBj_HouGuMian.position.x,OBj_HouGuMian.position.y,OBj_HouGuMian.position.z-0.5,"Tag4","后鼓面");
-                            TagMove(OBj_YouGuChui,OBj_YouGuChui.position.x+2,OBj_YouGuChui.position.y-1,OBj_YouGuChui.position.z+1,"Tag5","右鼓槌");
-                            TagMove(OBj_ZuoGuChui,OBj_ZuoGuChui.position.x-2,OBj_ZuoGuChui.position.y-1,OBj_ZuoGuChui.position.z,"Tag6","左鼓槌");
+                            TagMove(OBJ_GuBin,OBJ_GuBin.position.x-1,OBJ_GuBin.position.y-10,OBJ_GuBin.position.z,"Tag1","鼓柄");
+                            TagMove(OBj_GuSheng,OBj_GuSheng.position.x-1,OBj_GuSheng.position.y+12,OBj_GuSheng.position.z,"Tag2","鼓身");
+                            TagMove(OBj_QianGuMian,OBj_QianGuMian.position.x,OBj_QianGuMian.position.y,OBj_QianGuMian.position.z,"Tag3","前鼓面");
+                            TagMove(OBj_HouGuMian,OBj_HouGuMian.position.x,OBj_HouGuMian.position.y,OBj_HouGuMian.position.z,"Tag4","后鼓面");
+                            TagMove(OBj_YouGuChui,OBj_YouGuChui.position.x+6,OBj_YouGuChui.position.y-5,OBj_YouGuChui.position.z+3,"Tag5","右鼓槌");
+                            TagMove(OBj_ZuoGuChui,OBj_ZuoGuChui.position.x-3,OBj_ZuoGuChui.position.y-5,OBj_ZuoGuChui.position.z-3,"Tag6","左鼓槌");
                         }
                         else if(IsGetObj && !IsMove)
                         {
                             ControlModel_Back(OBJ_GuBin);
-                            ControlModel_Back(OBj_YouGuChui);
-                            ControlModel_Back(OBj_ZuoGuChui);
                             ControlModel_Back(OBj_QianGuMian);
                             ControlModel_Back(OBj_HouGuMian);
+                            ControlModel_Back(OBj_YouGuChui);
+                            ControlModel_Back(OBj_ZuoGuChui);
                             TagDisplay("Tag1","Tag2","Tag3","Tag4","Tag5","Tag6");
                         }
 
