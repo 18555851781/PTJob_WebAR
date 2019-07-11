@@ -49,7 +49,6 @@
             right: 0%;
             width: 110px;
             height: 84px;
-            background-image: url("../Model/Texture/BLG.jpg");
         }
         #Tag1,#Tag2,#Tag3,#Tag4,#Tag5,#Tag6{
             position: absolute;
@@ -77,8 +76,14 @@
                 <div id="Tag5"></div>
                 <div id="Tag6"></div>
             </div>
-            <input type="image" src="../Model/Texture/WechatIMG129.png" class="Move"  onclick="MoveControl()" >
-            <p class="Text">拨浪鼓是一种古老又传统的民间乐器和玩具，出现于战国时期。拨浪鼓的主体是一面小鼓，两侧缀有两枚弹丸，鼓下有柄，转动鼓柄弹丸击鼓发出声音。鼓身可以是木的也可以是竹的，还有泥的、硬纸的；鼓面用羊皮、牛皮、蛇皮或纸制成，其中以木身羊皮面的拨浪鼓最为典型。</p>
+            <div>
+                <input type="button" class="DisplayTag"  onclick="TagDisplay()" >
+                <input type="button" class="NotDisplayTag" onclick="TagNotDisplay()">
+            </div>
+            <div>
+                <p class="Text">拨浪鼓是一种古老又传统的民间乐器和玩具，出现于战国时期。拨浪鼓的主体是一面小鼓，两侧缀有两枚弹丸，鼓下有柄，转动鼓柄弹丸击鼓发出声音。鼓身可以是木的也可以是竹的，还有泥的、硬纸的；鼓面用羊皮、牛皮、蛇皮或纸制成，其中以木身羊皮面的拨浪鼓最为典型。</p>
+                <img src="../Model/Texture/WechatIMG129.png" class="Move">
+            </div>
             <div id="Mask" class="Mask">
                 <img src="../Model/Texture/BLG.jpg" class="Load" onclick="MoveControl()">
             </div>
@@ -88,11 +93,47 @@
 
                 //  外部进行Bool值切换  使按钮按下后移动阀值改变
                 var IsGetObj,IsMove = false;
-                var IsMoveOver = true;
 
                 function MoveControl()
                 {
                     IsMove = !IsMove;
+                }
+
+                //  标签显示
+                function TagDisplay()
+                {
+                    console.log("111111111");
+
+                    var Mytag1 = document.getElementById("Tag1");
+                    Mytag1.style.display = "block";
+                    var Mytag2 = document.getElementById("Tag2");
+                    Mytag2.style.display = "block";
+                    var Mytag3 = document.getElementById("Tag3");
+                    Mytag3.style.display = "block";
+                    var Mytag4 = document.getElementById("Tag4");
+                    Mytag4.style.display = "block";
+                    var Mytag5 = document.getElementById("Tag5");
+                    Mytag5.style.display = "block";
+                    var Mytag6 = document.getElementById("Tag6");
+                    Mytag6.style.display = "block";
+                }
+
+                //  标签取消显示
+                function TagNotDisplay()
+                {
+                    console.log("2222222222");
+                    var Mytag1 = document.getElementById("Tag1");
+                    Mytag1.style.display = "none";
+                    var Mytag2 = document.getElementById("Tag2");
+                    Mytag2.style.display = "none";
+                    var Mytag3 = document.getElementById("Tag3");
+                    Mytag3.style.display = "none";
+                    var Mytag4 = document.getElementById("Tag4");
+                    Mytag4.style.display = "none";
+                    var Mytag5 = document.getElementById("Tag5");
+                    Mytag5.style.display = "none";
+                    var Mytag6 = document.getElementById("Tag6");
+                    Mytag6.style.display = "none";
                 }
 
                 function init()
@@ -362,24 +403,6 @@
                         objtag.innerHTML = text;
                         objtag.style.left = x_canvas  + "px";
                         objtag.style.top = y_canvas  + "px";
-                        objtag.style.display = "block";
-                    }
-
-                    //  标签取消显示
-                    function TagDisplay(tag1,tag2,tag3,tag4,tag5,tag6)
-                    {
-                        var Mytag1 = document.getElementById(tag1);
-                        Mytag1.style.display = "none";
-                        var Mytag2 = document.getElementById(tag2);
-                        Mytag2.style.display = "none";
-                        var Mytag3 = document.getElementById(tag3);
-                        Mytag3.style.display = "none";
-                        var Mytag4 = document.getElementById(tag4);
-                        Mytag4.style.display = "none";
-                        var Mytag5 = document.getElementById(tag5);
-                        Mytag5.style.display = "none";
-                        var Mytag6 = document.getElementById(tag6);
-                        Mytag6.style.display = "none";
                     }
 
                     //  第一帧的时候获取不到 必须要重复获取才可以
@@ -413,7 +436,7 @@
                             ControlModel_Back(OBj_HouGuMian);
                             ControlModel_Back(OBj_YouGuChui);
                             ControlModel_Back(OBj_ZuoGuChui);
-                            TagDisplay("Tag1","Tag2","Tag3","Tag4","Tag5","Tag6");
+                            // TagNotDisplay("Tag1","Tag2","Tag3","Tag4","Tag5","Tag6");
                         }
 
                     }
