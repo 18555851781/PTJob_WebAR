@@ -203,6 +203,8 @@
 
                     var control = new THREE.OrbitControls(camera,renderer.domElement);
                     control.autoRotate = true;
+                    control.maxDistance = 30;
+                    control.minDistance = 30;
 
                     //  不显示加载图片
                     function LoadDisplay()
