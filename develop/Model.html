@@ -17,11 +17,6 @@
             padding: 0;
             margin: 0;
         }
-        .UI_Body,.UI{
-            position: fixed;
-            width: 100%;
-            height: 100%;
-        }
         .Text{
             position: fixed;
             width: 70%;
@@ -187,9 +182,6 @@
                     camera.position.z = 30;
                     camera.lookAt(scene.position);
 
-                    var control = new THREE.OrbitControls(camera);
-                    control.autoRotate = true;
-
                     var pointlight = new THREE.PointLight(0xffffff,2);
                     pointlight.position.set(-30,30,-30);
                     scene.add(pointlight);
@@ -205,9 +197,12 @@
                     var renderer = new THREE.WebGLRenderer();
                     renderer.setSize(window.innerWidth,window.innerHeight);
                     renderer.setClearColor(new THREE.Color(0xffffff),1.0);
-                    //renderer.domElement.style.position = "relative";
+                    // renderer.setSize(500,500);
                     //  重要！！！将元素渲染到html元素上 否则不显示
                     document.body.appendChild(renderer.domElement);
+
+                    var control = new THREE.OrbitControls(camera,renderer.domElement);
+                    control.autoRotate = true;
 
                     //  不显示加载图片
                     function LoadDisplay()
