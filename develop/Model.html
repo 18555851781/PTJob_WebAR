@@ -11,7 +11,6 @@
     <script src="../three.js/examples/vendor/three.js/examples/js/controls/OrbitControls.js"></script>
     <script src="../three.js/examples/vendor/three.js/examples/js/loaders/OBJLoader.js"></script>
     <script src="../three.js/examples/vendor/three.js/examples/js/loaders/MTLLoader.js"></script>
-
     <style>
         *{
             padding: 0;
@@ -235,16 +234,14 @@
                             material.preload();
 
                             var Loadobj = new THREE.OBJLoader();
-                            Loadobj.setMaterials(material);
                             Loadobj.setPath('../Model/OBJ/');
                             Loadobj.load('BLG_GuSheng.obj',function (obj) {
-
                                 obj.name = "GuSheng";
                                 OBj_GuSheng = obj;
                                 console.log(obj);
-                                //OBJ_Group.add(OBj_GuSheng);
                                 scene.add(obj);
                             });
+                            Loadobj.setMaterials(material);
                         })
 
                         var loader_2 = new THREE.MTLLoader();
@@ -434,7 +431,7 @@
                             TagControl(OBJ_GuBin,OBJ_GuBin.position.x-1,OBJ_GuBin.position.y-10,OBJ_GuBin.position.z,"Tag1","鼓柄");
                             TagControl(OBj_GuSheng,OBj_GuSheng.position.x-1,OBj_GuSheng.position.y+13,OBj_GuSheng.position.z-1,"Tag2","鼓身");
                             TagControl(OBj_QianGuMian,OBj_QianGuMian.position.x,OBj_QianGuMian.position.y,OBj_QianGuMian.position.z+2,"Tag3","前鼓面");
-                            TagControl(OBj_HouGuMian,OBj_HouGuMian.position.x,OBj_HouGuMian.position.y,OBj_HouGuMian.position.z-4,"Tag4","后鼓面");
+                            TagControl(OBj_HouGuMian,OBj_HouGuMian.position.x,OBj_HouGuMian.position.y,OBj_HouGuMian.position.z-3,"Tag4","后鼓面");
                             TagControl(OBj_YouGuChui,OBj_YouGuChui.position.x+8,OBj_YouGuChui.position.y-5,OBj_YouGuChui.position.z+3,"Tag5","右鼓槌");
                             TagControl(OBj_ZuoGuChui,OBj_ZuoGuChui.position.x-5,OBj_ZuoGuChui.position.y-5,OBj_ZuoGuChui.position.z-3,"Tag6","左鼓槌");
                         }
